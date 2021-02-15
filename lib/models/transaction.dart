@@ -11,4 +11,9 @@ class Transaction {
       @required this.title,
       @required this.amount,
       @required this.date});
+
+  @override
+  String toString() {
+    return 'Transaction{id: $id, title: $title, amount: $amount, date: $date}';
+  }
 }
