@@ -1,6 +1,7 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
-import 'transaction.dart';
-import 'glassMorphism.dart';
+import 'package:money_expenses_app/widgets/usertransactions.dart';
 
 void main() {
   runApp(MyApp());
@@ -21,59 +22,37 @@ class _MyAppState extends State<MyApp> {
   }
 }
 
+//String titleInput;
+//String amountInput;
+
 class Homepage extends StatefulWidget {
   @override
   _HomepageState createState() => _HomepageState();
 }
 
 class _HomepageState extends State<Homepage> {
-  final List<Transaction> transactionsList = [
-    Transaction(id: "T1", title: "Apples", amount: 3, date: DateTime.now()),
-    Transaction(id: "T2", title: "Milk", amount: 7, date: DateTime.now()),
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-              colors: [
-                const Color(0xFF915FB5),
-                const Color(0xFFCA436B),
-              ],
-              begin: FractionalOffset.topCenter,
-              end: FractionalOffset.bottomCenter,
-              stops: [0.0, 1.0],
-              tileMode: TileMode.clamp),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              width: double.infinity,
-              height: 30,
-              child: Card(
-                color: Colors.grey,
-                elevation: 5,
-                child: Text(
-                  "CHART",
-                  textAlign: TextAlign.center,
-                ),
-              ),
-            ),
-            Container(
-              child: Column(
-                children: transactionsList.map((transactionObj) {
-                  return GlassTile(
-                      id: transactionObj.id,
-                      title: transactionObj.title,
-                      amount: transactionObj.amount,
-                      date: transactionObj.date);
-                }).toList(),
-              ),
-            )
-          ],
+      body: SingleChildScrollView(
+        child: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+                colors: [
+                  const Color(0xFF915FB5),
+                  const Color(0xFFCA436B),
+                ],
+                begin: FractionalOffset.topCenter,
+                end: FractionalOffset.bottomCenter,
+                stops: [0.0, 1.0],
+                tileMode: TileMode.clamp),
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              UserTransactionsUpdate(),
+            ],
+          ),
         ),
       ),
     );
