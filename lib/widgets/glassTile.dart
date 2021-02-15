@@ -1,8 +1,8 @@
 import 'dart:ui';
-
+import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 
-class GlassTile extends StatefulWidget {
+class GlassTile extends StatelessWidget {
   final String id;
   final String title;
   final double amount;
@@ -13,44 +13,19 @@ class GlassTile extends StatefulWidget {
       @required this.title,
       @required this.amount,
       @required this.date});
-  @override
-  _GlassTileState createState() => _GlassTileState(
-      id: this.id, title: this.title, amount: this.amount, date: this.date);
-}
-
-class _GlassTileState extends State<GlassTile> {
-  final String id;
-  final String title;
-  final double amount;
-  final DateTime date;
-
-  _GlassTileState(
-      {@required this.id,
-      @required this.title,
-      @required this.amount,
-      @required this.date});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        boxShadow: [
-          BoxShadow(
-            blurRadius: 10,
-            spreadRadius: 2,
-            color: Colors.black.withOpacity(0.3),
-          ),
-        ],
-      ),
+      margin: EdgeInsets.only(left: 20, right: 20, top: 10),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(16),
         child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 16, sigmaY: 16),
+          filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
           child: Container(
               width: double.infinity,
               decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.2),
+                color: Colors.grey.shade100.withOpacity(0.3),
                 borderRadius: BorderRadius.circular(16),
                 border: Border.all(
                   width: 1.5,
@@ -59,7 +34,6 @@ class _GlassTileState extends State<GlassTile> {
               ),
               child: Container(
                 color: Colors.white.withOpacity(0.09),
-                height: 100,
                 width: double.infinity,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -77,20 +51,14 @@ class _GlassTileState extends State<GlassTile> {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          padding: EdgeInsets.all(15),
+                          padding: EdgeInsets.all(10),
                           decoration: BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
-                                blurRadius: 3,
-                                spreadRadius: 1,
-                                color: Colors.black.withOpacity(0.3),
-                              ),
-                            ],
                             color: const Color(0xFFCA436B).withOpacity(1),
-                            borderRadius: BorderRadius.circular(16),
+                            //color: Colors.white.withOpacity(0.1),
+                            borderRadius: BorderRadius.circular(20),
                             border: Border.all(
                               width: 1,
-                              color: Colors.white.withOpacity(0.2),
+                              color: Colors.white.withOpacity(0.5),
                             ),
                           ),
                         ),
@@ -107,17 +75,17 @@ class _GlassTileState extends State<GlassTile> {
                               "$title",
                               style: TextStyle(
                                   color: Colors.black,
-                                  fontSize: 24,
+                                  fontSize: 22,
                                   fontWeight: FontWeight.bold),
                             ),
                             SizedBox(
-                              height: 10,
+                              height: 5,
                             ),
                             Text(
-                              "$date",
+                              "${DateFormat.yMMMd().format(date)}",
                               style: TextStyle(
                                 color: Colors.white,
-                                fontSize: 15,
+                                fontSize: 14,
                               ),
                             ),
                           ],
