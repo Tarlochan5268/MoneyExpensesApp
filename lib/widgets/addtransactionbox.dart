@@ -8,6 +8,18 @@ class AddTransactionBox extends StatelessWidget {
   final Function addTransactionFunction;
   AddTransactionBox({this.addTransactionFunction});
 
+  void submitData() {
+    final enteredTitle = titleController.text;
+    final enteredAmount = double.parse(amountController.text);
+
+    if (enteredTitle.isEmpty || enteredAmount <= 0) {
+      return;
+    }
+    addTransactionFunction(enteredTitle, enteredAmount);
+    titleController.clear();
+    amountController.clear();
+  }
+
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
@@ -30,6 +42,7 @@ class AddTransactionBox extends StatelessWidget {
               children: [
                 TextField(
                   decoration: InputDecoration(labelText: "Enter Title"),
+                  onSubmitted: (_) => submitData(),
                   /*onChanged: (value) {
                             titleInput = value;
                           },*/
@@ -38,6 +51,8 @@ class AddTransactionBox extends StatelessWidget {
                 TextField(
                   decoration: InputDecoration(labelText: "Enter Amount"),
                   controller: amountController,
+                  keyboardType: TextInputType.numberWithOptions(decimal: true),
+                  onSubmitted: (_) => submitData(),
                   /*onChanged: (value) {
                             amountInput = value;
                           },*/
@@ -52,12 +67,7 @@ class AddTransactionBox extends StatelessWidget {
                   ),
                   color: Colors.white.withOpacity(0.3),
                   child: Text("Add Transaction"),
-                  onPressed: () {
-                    addTransactionFunction(titleController.text,
-                        double.parse(amountController.text));
-                    titleController.clear();
-                    amountController.clear();
-                  },
+                  onPressed: submitData,
                 ),
               ],
             ),
