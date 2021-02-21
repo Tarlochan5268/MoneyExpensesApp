@@ -44,7 +44,7 @@ class GlassTile extends StatelessWidget {
                       child: Center(
                         child: Container(
                           child: Text(
-                            "\$$amount",
+                            "\$${amount.toStringAsFixed(2)}",
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 17,
