@@ -1,7 +1,6 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'package:money_expenses_app/widgets/usertransactions.dart';
+
+import 'homepage.dart';
 
 void main() {
   runApp(MyApp());
@@ -24,40 +23,6 @@ class _MyAppState extends State<MyApp> {
 
 //String titleInput;
 //String amountInput;
-
-class Homepage extends StatefulWidget {
-  @override
-  _HomepageState createState() => _HomepageState();
-}
-
-class _HomepageState extends State<Homepage> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-                colors: [
-                  const Color(0xFF915FB5),
-                  const Color(0xFFCA436B),
-                ],
-                begin: FractionalOffset.topCenter,
-                end: FractionalOffset.bottomCenter,
-                stops: [0.0, 1.0],
-                tileMode: TileMode.clamp),
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              UserTransactionsUpdate(),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
 
 /*
 return Card(
