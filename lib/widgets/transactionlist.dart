@@ -9,6 +9,24 @@ class TransactionList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 450,
+      child: ListView.builder(
+        itemBuilder: (context, index) {
+          return GlassTile(
+              id: transactionsList[index].id,
+              title: transactionsList[index].title,
+              amount: transactionsList[index].amount,
+              date: transactionsList[index].date);
+        },
+        itemCount: transactionsList.length,
+      ),
+    );
+  }
+}
+
+/*
+
+return Container(
       child: Column(
         children: transactionsList.map((transactionObj) {
           return GlassTile(
@@ -19,5 +37,5 @@ class TransactionList extends StatelessWidget {
         }).toList(),
       ),
     );
-  }
-}
+
+ */
