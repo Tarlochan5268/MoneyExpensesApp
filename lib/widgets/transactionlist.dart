@@ -4,8 +4,9 @@ import 'package:money_expenses_app/models/transaction.dart';
 import 'glassTile.dart';
 
 class TransactionList extends StatelessWidget {
+  final Function deleteTransaction;
   final List<Transaction> transactionsList;
-  TransactionList({this.transactionsList});
+  TransactionList({this.transactionsList, this.deleteTransaction});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -13,6 +14,7 @@ class TransactionList extends StatelessWidget {
       child: ListView.builder(
         itemBuilder: (context, index) {
           return GlassTile(
+              deleteTransaction: deleteTransaction,
               id: transactionsList[index].id,
               title: transactionsList[index].title,
               amount: transactionsList[index].amount,
