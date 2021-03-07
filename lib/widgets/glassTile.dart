@@ -1,18 +1,22 @@
 import 'dart:ui';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
+import 'package:money_expenses_app/homepage.dart';
 
 class GlassTile extends StatelessWidget {
   final String id;
   final String title;
   final double amount;
   final DateTime date;
+  final Function deleteTransaction;
 
-  GlassTile(
-      {@required this.id,
-      @required this.title,
-      @required this.amount,
-      @required this.date});
+  GlassTile({
+    @required this.id,
+    @required this.title,
+    @required this.amount,
+    @required this.date,
+    this.deleteTransaction,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +59,7 @@ class GlassTile extends StatelessWidget {
                           decoration: BoxDecoration(
                             color: const Color(0xFFCA436B).withOpacity(1),
                             //color: Colors.white.withOpacity(0.1),
-                            borderRadius: BorderRadius.circular(20),
+                            borderRadius: BorderRadius.circular(10),
                             border: Border.all(
                               width: 1,
                               color: Colors.white.withOpacity(0.5),
@@ -72,7 +76,7 @@ class GlassTile extends StatelessWidget {
                         child: Column(
                           children: [
                             Text(
-                              "$title",
+                              "${title}",
                               style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 22,
@@ -93,6 +97,13 @@ class GlassTile extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                         ),
                       ),
+                    ),
+                    IconButton(
+                      icon: Icon(Icons.delete),
+                      color: Colors.deepPurple.withOpacity(0.7),
+                      onPressed: () {
+                        deleteTransaction(id);
+                      },
                     ),
                   ],
                 ),
