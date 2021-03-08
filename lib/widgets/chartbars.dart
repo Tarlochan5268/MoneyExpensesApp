@@ -29,7 +29,7 @@ class ChartBars extends StatelessWidget {
                     color: Colors.grey,
                     width: 1,
                   ),
-                  color: Color.fromRGBO(220, 220, 220, 1),
+                  color: Color.fromRGBO(220, 220, 220, 1).withOpacity(0.7),
                   borderRadius: BorderRadius.circular(10),
                 ),
               ),

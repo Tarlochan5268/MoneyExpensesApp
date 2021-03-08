@@ -42,6 +42,7 @@ class Chart extends StatelessWidget {
   Widget build(BuildContext context) {
     print(groupedTransactionValues);
     return Card(
+      color: Colors.white.withOpacity(0.4),
       elevation: 6,
       margin: EdgeInsets.all(20),
       child: Container(

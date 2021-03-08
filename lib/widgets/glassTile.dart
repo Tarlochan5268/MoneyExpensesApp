@@ -1,4 +1,6 @@
 import 'dart:ui';
+import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:money_expenses_app/homepage.dart';
@@ -23,14 +25,14 @@ class GlassTile extends StatelessWidget {
     return Container(
       margin: EdgeInsets.only(left: 20, right: 20, top: 10),
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(5),
         child: BackdropFilter(
           filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
           child: Container(
               width: double.infinity,
               decoration: BoxDecoration(
                 color: Colors.grey.shade100.withOpacity(0.3),
-                borderRadius: BorderRadius.circular(16),
+                borderRadius: BorderRadius.circular(5),
                 border: Border.all(
                   width: 1.5,
                   color: Colors.white.withOpacity(0.3),
@@ -52,14 +54,14 @@ class GlassTile extends StatelessWidget {
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 17,
-                              fontWeight: FontWeight.bold,
+                              fontWeight: FontWeight.w400,
                             ),
                           ),
                           padding: EdgeInsets.all(10),
                           decoration: BoxDecoration(
                             color: const Color(0xFFCA436B).withOpacity(1),
                             //color: Colors.white.withOpacity(0.1),
-                            borderRadius: BorderRadius.circular(10),
+                            borderRadius: BorderRadius.circular(5),
                             border: Border.all(
                               width: 1,
                               color: Colors.white.withOpacity(0.5),
