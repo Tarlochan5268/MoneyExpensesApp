@@ -3,6 +3,7 @@ import 'package:money_expenses_app/widgets/addtransactionbox.dart';
 import 'package:money_expenses_app/widgets/chart.dart';
 import 'package:money_expenses_app/widgets/transactionlist.dart';
 import 'dart:ui';
+import 'widgets/no_transaction_list_widget.dart';
 
 import 'models/transaction.dart';
 
@@ -35,6 +36,8 @@ final List<Transaction> transactionsList = [
 ];
 
 class _HomepageState extends State<Homepage> {
+  bool showChart = false;
+
   List<Transaction> get _recentTransactions {
     return transactionsList.where((transactionObj) {
       return transactionObj.date.isAfter(DateTime.now().subtract(
@@ -76,21 +79,27 @@ class _HomepageState extends State<Homepage> {
 
   @override
   Widget build(BuildContext context) {
+    final isLandscape =
+        MediaQuery.of(context).orientation == Orientation.landscape;
+    final appBar = AppBar(
+      backgroundColor: const Color(0xFFCA436B).withOpacity(0.9),
+      title: Center(
+          child: Text(
+        "Expenses App",
+        style: TextStyle(fontFamily: 'OpenSans'),
+      )),
+      actions: [
+        IconButton(
+          icon: Icon(Icons.add),
+          onPressed: () => startAddNewTransaction(context),
+        )
+      ],
+    );
+    final heightCalculated = (MediaQuery.of(context).size.height -
+        appBar.preferredSize.height -
+        MediaQuery.of(context).padding.top);
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color(0xFFCA436B).withOpacity(0.9),
-        title: Center(
-            child: Text(
-          "Expenses App",
-          style: TextStyle(fontFamily: 'OpenSans'),
-        )),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.add),
-            onPressed: () => startAddNewTransaction(context),
-          )
-        ],
-      ),
+      appBar: appBar,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
         backgroundColor: const Color(0xFF915FB5).withOpacity(1),
@@ -110,46 +119,76 @@ class _HomepageState extends State<Homepage> {
               tileMode: TileMode.clamp),
         ),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            transactionsList.isEmpty
-                ? Container(
-                    child: Column(
-                      children: [
-                        Chart(
-                          recentTransactions: _recentTransactions,
-                        ),
-                        Text(
-                          "No Transactions Added Here",
-                          style: TextStyle(
-                              fontSize: 25, fontWeight: FontWeight.bold),
-                        ),
-                        SizedBox(
-                          height: 50,
-                        ),
-                        Center(
-                          child: Container(
-                            height: 200,
-                            child: Image.asset(
-                              'assets/images/waiting.png',
-                              fit: BoxFit.cover,
+            (isLandscape)
+                ? Column(
+                    children: [
+                      Container(
+                        height: heightCalculated * 0.1,
+                        padding: EdgeInsets.only(top: 5),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Show Chart',
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 15),
                             ),
-                          ),
+                            Switch(
+                              activeColor: Colors.pink,
+                              value: showChart,
+                              onChanged: (bool value) {
+                                setState(() {
+                                  showChart = value;
+                                });
+                              },
+                            )
+                          ],
                         ),
-                      ],
-                    ),
+                      ),
+                      (showChart)
+                          ? Container(
+                              height: heightCalculated * 0.6,
+                              child: Chart(
+                                recentTransactions: _recentTransactions,
+                              ),
+                            )
+                          : (transactionsList.isNotEmpty)
+                              ? Container(
+                                  height: heightCalculated * 0.8,
+                                  child: TransactionList(
+                                    deleteTransaction: deleteTransaction,
+                                    transactionsList: transactionsList,
+                                  ),
+                                )
+                              : NoTransactionListWidget(
+                                  heightAssigned: heightCalculated * 0.8,
+                                ),
+                    ],
                   )
                 : Column(
                     children: [
-                      Chart(
-                        recentTransactions: _recentTransactions,
+                      Container(
+                        height: heightCalculated * 0.25,
+                        child: Chart(
+                          recentTransactions: _recentTransactions,
+                        ),
                       ),
-                      TransactionList(
-                        deleteTransaction: deleteTransaction,
-                        transactionsList: transactionsList,
-                      ),
+                      (transactionsList.isNotEmpty)
+                          ? Container(
+                              height: heightCalculated * 0.7,
+                              child: TransactionList(
+                                deleteTransaction: deleteTransaction,
+                                transactionsList: transactionsList,
+                              ),
+                            )
+                          : NoTransactionListWidget(
+                              heightAssigned: heightCalculated * 0.7,
+                            ),
                     ],
-                  )
+                  ),
           ],
         ),
       ),
