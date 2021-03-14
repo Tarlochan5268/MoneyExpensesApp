@@ -132,15 +132,3 @@ class _AddTransactionBoxState extends State<AddTransactionBox> {
     );
   }
 }
-
-/*
-
-setState(() {
-                        transactionsList.add(new Transaction(
-                            id: "T${transactionsList.length + 1}",
-                            title: titleController.text,
-                            amount: double.parse(amountController.text),
-                            date: DateTime.now()));
-                      });
-
- */
