@@ -100,13 +100,27 @@ class GlassTile extends StatelessWidget {
                         ),
                       ),
                     ),
-                    IconButton(
-                      icon: Icon(Icons.delete),
-                      color: Colors.deepPurple.withOpacity(0.7),
-                      onPressed: () {
-                        deleteTransaction(id);
-                      },
-                    ),
+                    (MediaQuery.of(context).size.width > 460)
+                        ? TextButton.icon(
+                            icon: Icon(
+                              Icons.delete,
+                              color: Colors.deepPurple.withOpacity(0.7),
+                            ),
+                            onPressed: () {
+                              deleteTransaction(id);
+                            },
+                            label: Text(
+                              "Delete",
+                              style: TextStyle(color: Colors.black),
+                            ),
+                          )
+                        : IconButton(
+                            icon: Icon(Icons.delete),
+                            color: Colors.deepPurple.withOpacity(0.7),
+                            onPressed: () {
+                              deleteTransaction(id);
+                            },
+                          ),
                   ],
                 ),
               )),
