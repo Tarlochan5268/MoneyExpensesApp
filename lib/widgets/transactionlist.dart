@@ -10,7 +10,7 @@ class TransactionList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 450,
+      //this is for screen 60% size
       child: ListView.builder(
         itemBuilder: (context, index) {
           return GlassTile(
