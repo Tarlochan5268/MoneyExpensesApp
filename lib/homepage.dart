@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:io';
 import 'package:money_expenses_app/widgets/addtransactionbox.dart';
 import 'package:money_expenses_app/widgets/chart.dart';
 import 'package:money_expenses_app/widgets/transactionlist.dart';
@@ -101,11 +102,13 @@ class _HomepageState extends State<Homepage> {
     return Scaffold(
       appBar: appBar,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: const Color(0xFF915FB5).withOpacity(1),
-        onPressed: () => startAddNewTransaction(context),
-        child: Icon(Icons.add),
-      ),
+      floatingActionButton: (!Platform.isIOS)
+          ? FloatingActionButton(
+              backgroundColor: const Color(0xFF915FB5).withOpacity(1),
+              onPressed: () => startAddNewTransaction(context),
+              child: Icon(Icons.add),
+            )
+          : Container(),
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -136,7 +139,7 @@ class _HomepageState extends State<Homepage> {
                               style:
                                   TextStyle(color: Colors.white, fontSize: 15),
                             ),
-                            Switch(
+                            Switch.adaptive(
                               activeColor: Colors.pink,
                               value: showChart,
                               onChanged: (bool value) {
@@ -178,14 +181,14 @@ class _HomepageState extends State<Homepage> {
                       ),
                       (transactionsList.isNotEmpty)
                           ? Container(
-                              height: heightCalculated * 0.7,
+                              height: heightCalculated * 0.65,
                               child: TransactionList(
                                 deleteTransaction: deleteTransaction,
                                 transactionsList: transactionsList,
                               ),
                             )
                           : NoTransactionListWidget(
-                              heightAssigned: heightCalculated * 0.7,
+                              heightAssigned: heightCalculated * 0.65,
                             ),
                     ],
                   ),
