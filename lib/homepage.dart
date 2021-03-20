@@ -78,6 +78,78 @@ class _HomepageState extends State<Homepage> {
         });
   }
 
+  Widget _isLandscapeBuild(double heightCalculated) {
+    return Column(
+      children: [
+        Container(
+          height: heightCalculated * 0.1,
+          padding: EdgeInsets.only(top: 5),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'Show Chart',
+                style: TextStyle(color: Colors.white, fontSize: 15),
+              ),
+              Switch.adaptive(
+                activeColor: Colors.pink,
+                value: showChart,
+                onChanged: (bool value) {
+                  setState(() {
+                    showChart = value;
+                  });
+                },
+              )
+            ],
+          ),
+        ),
+        (showChart)
+            ? Container(
+                height: heightCalculated * 0.6,
+                child: Chart(
+                  recentTransactions: _recentTransactions,
+                ),
+              )
+            : (transactionsList.isNotEmpty)
+                ? Container(
+                    height: heightCalculated * 0.8,
+                    child: TransactionList(
+                      deleteTransaction: deleteTransaction,
+                      transactionsList: transactionsList,
+                    ),
+                  )
+                : NoTransactionListWidget(
+                    heightAssigned: heightCalculated * 0.8,
+                  ),
+      ],
+    );
+  }
+
+  Widget _isPotraitBuild(double heightCalculated) {
+    return Column(
+      children: [
+        Container(
+          height: heightCalculated * 0.25,
+          child: Chart(
+            recentTransactions: _recentTransactions,
+          ),
+        ),
+        (transactionsList.isNotEmpty)
+            ? Container(
+                height: heightCalculated * 0.65,
+                child: TransactionList(
+                  deleteTransaction: deleteTransaction,
+                  transactionsList: transactionsList,
+                ),
+              )
+            : NoTransactionListWidget(
+                heightAssigned: heightCalculated * 0.65,
+              ),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final isLandscape =
@@ -125,73 +197,8 @@ class _HomepageState extends State<Homepage> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             (isLandscape)
-                ? Column(
-                    children: [
-                      Container(
-                        height: heightCalculated * 0.1,
-                        padding: EdgeInsets.only(top: 5),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              'Show Chart',
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 15),
-                            ),
-                            Switch.adaptive(
-                              activeColor: Colors.pink,
-                              value: showChart,
-                              onChanged: (bool value) {
-                                setState(() {
-                                  showChart = value;
-                                });
-                              },
-                            )
-                          ],
-                        ),
-                      ),
-                      (showChart)
-                          ? Container(
-                              height: heightCalculated * 0.6,
-                              child: Chart(
-                                recentTransactions: _recentTransactions,
-                              ),
-                            )
-                          : (transactionsList.isNotEmpty)
-                              ? Container(
-                                  height: heightCalculated * 0.8,
-                                  child: TransactionList(
-                                    deleteTransaction: deleteTransaction,
-                                    transactionsList: transactionsList,
-                                  ),
-                                )
-                              : NoTransactionListWidget(
-                                  heightAssigned: heightCalculated * 0.8,
-                                ),
-                    ],
-                  )
-                : Column(
-                    children: [
-                      Container(
-                        height: heightCalculated * 0.25,
-                        child: Chart(
-                          recentTransactions: _recentTransactions,
-                        ),
-                      ),
-                      (transactionsList.isNotEmpty)
-                          ? Container(
-                              height: heightCalculated * 0.65,
-                              child: TransactionList(
-                                deleteTransaction: deleteTransaction,
-                                transactionsList: transactionsList,
-                              ),
-                            )
-                          : NoTransactionListWidget(
-                              heightAssigned: heightCalculated * 0.65,
-                            ),
-                    ],
-                  ),
+                ? _isLandscapeBuild(heightCalculated)
+                : _isPotraitBuild(heightCalculated),
           ],
         ),
       ),
